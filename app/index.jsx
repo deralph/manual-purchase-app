@@ -8,9 +8,17 @@ import { CustomButton, Loader } from "../components";
 import { useGlobalContext } from "../context/GlobalProvider";
 
 const Welcome = () => {
-  const { loading, isLogged } = useGlobalContext();
+  const { loading, isLogged, user } = useGlobalContext();
 
-  if (!loading && isLogged) return <Redirect href="/home" />;
+  if (!loading && isLogged) {
+    if (user.email === "admin@mail.com") {
+      // Navigate to admin page
+      return <Redirect href="/admin-home" />;
+    } else {
+      // Regular user
+      return <Redirect href="/home" />;
+    }
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">

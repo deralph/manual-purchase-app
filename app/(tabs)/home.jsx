@@ -4,7 +4,11 @@ import { FlatList, Image, RefreshControl, Text, View } from "react-native";
 
 import { images } from "../../constants";
 import useAppwrite from "../../lib/useAppwrite";
-import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
+import {
+  getAllPosts,
+  getAnnouncements,
+  getLatestPosts,
+} from "../../lib/appwrite";
 import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
 import { BooksForSale } from "../../constants/data";
 import { useGlobalContext } from "../../context/GlobalProvider";
@@ -14,6 +18,10 @@ const Home = () => {
   // const { data: latestPosts } = useAppwrite(getLatestPosts);
   const { user } = useGlobalContext();
   console.log(user);
+
+  const { data } = useAppwrite(() => getAnnouncements());
+  console.log(data);
+  console.log(" last data  = ", data[data.length - 1]);
   // const [refreshing, setRefreshing] = useState(false);
 
   // const onRefresh = async () => {
@@ -49,6 +57,11 @@ const Home = () => {
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
                   {user?.matricNo}
+                </Text>
+                <Text className="text-base font-psemibold text-gray-200 mt-4">
+                  {data
+                    ? data[data.length - 1].announcement
+                    : "All manuals are now avalaible at the computer lab"}
                 </Text>
               </View>
 
@@ -87,3 +100,20 @@ const Home = () => {
 };
 
 export default Home;
+
+const hi = [
+  {
+    $collectionId: "66fba051002dbff5f909",
+    $createdAt: "2024-10-01T09:44:08.289+00:00",
+    $databaseId: "668fe6ea003beb9dd282",
+    $id: "66fbc4684612458c6d5a",
+    $permissions: [
+      'read("user:66fb9822e423bd6e801a")',
+      'update("user:66fb9822e423bd6e801a")',
+      'delete("user:66fb9822e423bd6e801a")',
+    ],
+    $updatedAt: "2024-10-01T09:44:08.289+00:00",
+    announcement:
+      "Please note that all manuals are available at the computer science laboratory ",
+  },
+];

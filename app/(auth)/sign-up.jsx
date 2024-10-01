@@ -29,7 +29,13 @@ const SignUp = () => {
       setUser(result);
       setIsLogged(true);
 
-      router.replace("/home");
+      if (form.email === "admin@mail.com") {
+        // Navigate to admin page
+        router.replace("/admin-home");
+      } else {
+        // Regular user
+        router.replace("/home");
+      }
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {

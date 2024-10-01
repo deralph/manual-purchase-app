@@ -15,6 +15,7 @@ const GlobalProvider = ({ children }) => {
       .then((res) => {
         if (res) {
           setIsLogged(true);
+          console.log(res.email);
           setUser(res);
         } else {
           setIsLogged(false);

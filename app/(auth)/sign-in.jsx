@@ -29,9 +29,15 @@ const SignIn = () => {
       const result = await getCurrentUser();
       setUser(result);
       setIsLogged(true);
-
       Alert.alert("Success", "User signed in successfully");
-      router.replace("/home");
+      if (form.email === "admin@mail.com") {
+        // Navigate to admin page
+        router.replace("/admin-home");
+      } else {
+        // Regular user
+        router.replace("/home");
+      }
+      // router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
@@ -87,7 +93,7 @@ const SignIn = () => {
             isLoading={isSubmitting}
           />
 
-          {/* <View className="flex justify-center pt-5 flex-row gap-2">
+          <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
               Don't have an account?
             </Text>
@@ -97,7 +103,7 @@ const SignIn = () => {
             >
               Signup
             </Link>
-          </View> */}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
